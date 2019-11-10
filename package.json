@@ -1,0 +1,58 @@
+{
+    "name": "pip-clients-jobs-node",
+    "version": "1.0.0",
+    "author": "Conceptual Vision Consulting LLC",
+    "description": "Node.js client sdk for jobs microservice",
+    "contributors": [
+        {
+            "name": "Sergey Seroukhov",
+            "email": "seroukhov@gmail.com"
+        }
+    ],
+    "main": "./obj/src/index.js",
+    "typings": "./obj/src/index.d.ts",
+    "keywords": [
+        "jobs",
+        "microservice",
+        "client",
+        "sdk"
+    ],
+    "noAnalyze": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/pip-services-infrastructure/pip-clients-jobs-node.git"
+    },
+    "license": "MIT",
+    "engines": {
+        "node": ">=0.6.14"
+    },
+    "private": false,
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc --watch",
+        "test": "mocha -t 5000 -R spec -u tdd --recursive ./obj/test",
+        "retest": "tsc && mocha -t 5000 -R spec -u tdd --recursive ./obj/test",
+        "benchmark": "matcha -R clean -I tdd ./obj/benchmark/run.js",
+        "rebenchmark": "tsc && matcha -R clean -I tdd ./obj/benchmark/run.js"
+    },
+    "dependencies": {
+        "pip-services-commons-node": "^3.0.0",
+        "pip-services-components-node": "^3.0.0",
+        "pip-services-rpc-node": "^3.0.0"
+    },
+    "devDependencies": {
+        "@types/async": "^2.0.0",
+        "@types/chai": "*",
+        "@types/lodash": "^4.14.146",
+        "@types/mocha": "*",
+        "@types/mongodb": "^2.1.38",
+        "@types/mongoose": "^4.7.4",
+        "@types/node": "^12.12.7",
+        "aws-sdk": "*",
+        "chai": "*",
+        "matcha": "*",
+        "mocha": "*",
+        "pip-services-jobs-node": "git+https://github.com/pip-services-infrastructure/pip-services-jobs-node.git",
+        "restify": "^4.3.0"
+    }
+}
