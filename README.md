@@ -1,11 +1,11 @@
-# <img src="https://github.com/pip-services/pip-services/raw/master/design/Logo.png" alt="Pip.Services Logo" style="max-width:30%"> <br/> Jobs Microservice clienr SDK for Node.js
+# <img src="https://github.com/pip-services/pip-services/raw/master/design/Logo.png" alt="Pip.Services Logo" style="max-width:30%"> <br/> Jobs Microservice client SDK for Node.js
 
 <a name="links"></a> Quick Links:
 
 * [Download Links](doc/Downloads.md)
 * [Development Guide](doc/Development.md)
 * Service
-  - [Clusters service](https://github.com/pip-services-infrastructure/pip-service-jobs-node)
+  - [Jobs service](https://github.com/pip-services-infrastructure/pip-service-jobs-node)
 
 This is a Node.js client SDK for [pip-services-jobs](https://github.com/pip-services-infrastructure/pip-services-jobs-node) microservice.
 
@@ -13,9 +13,6 @@ This is a Node.js client SDK for [pip-services-jobs](https://github.com/pip-serv
 
 - Direct client for monolythic deployments
 - Http client
-- Lambda client for AWS
-- Memory client
-- Proxy http client
 - Null client to be used in testing
 
 ## Install

@@ -4,7 +4,7 @@ import { DataPage } from 'pip-services3-commons-node';
 import { DirectClient } from 'pip-services3-rpc-node';
 import { JobV1 } from '../../../src/data/version1/JobV1';
 import { IJobsClientV1 } from './IJobsClientV1';
-import { IJobsController } from '../../../src/logic/IJobsController';
+import { IJobsController } from 'pip-services-jobs-node';
 import { NewJobV1 } from '../../../src/data/version1/NewJobV1';
 export declare class JobsDirectClientV1 extends DirectClient<IJobsController> implements IJobsClientV1 {
     constructor();
