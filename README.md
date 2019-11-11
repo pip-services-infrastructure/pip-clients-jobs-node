@@ -172,6 +172,23 @@ Get jobs by filter:
             }
         }
     });
+
+    client.getJobs("123", FilterParams.fromTuples(
+                        'lock', 'false'
+                    ), 
+                    new PagingParams(), (err, page) => {
+        if (err != null) {
+            console.error('Can\'t get jobs!');
+            console.error(err);
+        } else {
+            console.dir('Jobs was recived successfull');
+            for (let job in page.data) {
+                console.dir('Job:');
+                console.dir(job.toString());
+            }
+        }
+    });
+
 ```
 
 Delete existing job by job_id:
@@ -203,7 +220,7 @@ Delete all job:
 ```
 
 
-*Control functions*
+## Control functions
 
 Start job:
 ```typescript
