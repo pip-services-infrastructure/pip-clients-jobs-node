@@ -10,33 +10,32 @@ import { IJobsClientV1 } from '../../../src/clients/version1/IJobsClientV1';
 import { NewJobV1 } from '../../../src/data/version1/NewJobV1';
 
 const JOB1: NewJobV1 = {
-    id: "Job1_t1_0fsd",
+    //id: "Job1_t1_0fsd",
     type: "t1",
     ref_id: "obj_0fsd",
     params: null,
-    timeout: new Date(1000*60*30), // 30 min
-    ttl:new Date(1000*60*60*3), // 3 hour
-    retries: 5
+    //timeout: 1000*60*30, // 30 min
+    ttl: 1000 * 60 * 60 * 3, // 3 hour
+    //retries: 5
 };
 const JOB2: NewJobV1 = {
-    id: "Job2_t1_0fsd",
+    //id: "Job2_t1_0fsd",
     type: "t1",
     ref_id: "obj_0fsd",
     params: null,
-    timeout: new Date(1000*60*15), // 15 min
-    ttl: new Date(1000*60*60), // 1 hour
-    retries: 3
+    //timeout: new Date(1000*60*15), // 15 min
+    ttl: 1000 * 60 * 60, // 1 hour
+    //retries: 3
 };
 const JOB3: NewJobV1 = {
-    id: "Job3_t2_3fsd",
+    //id: "Job3_t2_3fsd",
     type: "t2",
     ref_id: "obj_3fsd",
     params: null,
-    timeout: new Date(1000*60*10), // 10 minutes
-    ttl: new Date(1000*60*30), // 30 minutes
-    retries: 2
+    //timeout: new Date(1000*60*10), // 10 minutes
+    ttl: 1000 * 60 * 30, // 30 minutes
+    //retries: 2
 };
-
 
 export class JobsClientV1Fixture {
     private _client: IJobsClientV1;
@@ -59,19 +58,20 @@ export class JobsClientV1Fixture {
                         assert.isNull(err);
 
                         assert.isObject(job);
-                        assert.equal(JOB1.id, job.id);
+                        assert.isNotNull(job.id);
                         assert.equal(JOB1.type, job.type);
                         assert.equal(JOB1.ref_id, job.ref_id);
-                        assert.equal(JOB1.timeout.getUTCMilliseconds(), job.timeout.getUTCMilliseconds());
-                        assert.equal(JOB1.retries, job.try_counter);
+                        assert.equal(0, job.timeout);
+                        assert.equal(0, job.try_counter);
                         assert.equal(JOB1.params, job.params);
                         assert.isNotNull(job.created);
                         assert.isNotNull(job.execute_until);
-                        assert.isUndefined(job.started);
-                        assert.isUndefined(job.completed);
-                        assert.isUndefined(job.locked_until);
+                        assert.isNull(job.started);
+                        assert.isNull(job.completed);
+                        assert.isNull(job.locked_until);
                         assert.equal(false, job.lock);
-                                                
+                        job1 = job;
+
                         callback();
                     }
                 );
@@ -85,19 +85,19 @@ export class JobsClientV1Fixture {
                         assert.isNull(err);
 
                         assert.isObject(job);
-                        assert.equal(JOB1.id, job.id);
+                        assert.isNotNull(job.id);
                         assert.equal(JOB1.type, job.type);
                         assert.equal(JOB1.ref_id, job.ref_id);
-                        assert.equal(JOB1.timeout.getUTCMilliseconds(), job.timeout.getUTCMilliseconds());
-                        assert.equal(JOB1.retries, job.try_counter);
+                        assert.equal(0, job.timeout);
+                        assert.equal(0, job.try_counter);
                         assert.equal(JOB1.params, job.params);
                         assert.isNotNull(job.created);
                         assert.isNotNull(job.execute_until);
-                        assert.isUndefined(job.started);
-                        assert.isUndefined(job.completed);
-                        assert.isUndefined(job.locked_until);
+                        assert.isNull(job.started);
+                        assert.isNull(job.completed);
+                        assert.isNull(job.locked_until);
                         assert.equal(false, job.lock);
-                                                
+
                         callback();
                     }
                 );
@@ -111,19 +111,19 @@ export class JobsClientV1Fixture {
                         assert.isNull(err);
 
                         assert.isObject(job);
-                        assert.equal(JOB3.id, job.id);
+                        assert.isNotNull(job.id);
                         assert.equal(JOB3.type, job.type);
                         assert.equal(JOB3.ref_id, job.ref_id);
-                        assert.equal(JOB3.timeout.getUTCMilliseconds(), job.timeout.getUTCMilliseconds());
-                        assert.equal(JOB3.retries, job.try_counter);
+                        assert.equal(0, job.timeout);
+                        assert.equal(0, job.try_counter);
                         assert.equal(JOB3.params, job.params);
                         assert.isNotNull(job.created);
                         assert.isNotNull(job.execute_until);
-                        assert.isUndefined(job.started);
-                        assert.isUndefined(job.completed);
-                        assert.isUndefined(job.locked_until);
+                        assert.isNull(job.started);
+                        assert.isNull(job.completed);
+                        assert.isNull(job.locked_until);
                         assert.equal(false, job.lock);
-                                                
+
                         callback();
                     }
                 );
@@ -132,21 +132,21 @@ export class JobsClientV1Fixture {
             (callback) => {
                 this._client.getJobById(
                     null,
-                    JOB1.id,
+                    job1.id,
                     (err, job) => {
                         assert.isNull(err);
                         assert.isObject(job);
-                        assert.equal(JOB1.id, job.id);
+                        assert.equal(job1.id, job.id);
                         assert.equal(JOB1.type, job.type);
                         assert.equal(JOB1.ref_id, job.ref_id);
-                        assert.equal(JOB1.timeout.getUTCMilliseconds(), job.timeout.getUTCMilliseconds());
-                        assert.equal(JOB1.retries, job.try_counter);
+                        assert.equal(job1.timeout, job.timeout);
+                        assert.equal(job1.try_counter, job.try_counter);
                         assert.equal(JOB1.params, job.params);
                         assert.isNotNull(job.created);
                         assert.isNotNull(job.execute_until);
-                        assert.isUndefined(job.started);
-                        assert.isUndefined(job.completed);
-                        assert.isUndefined(job.locked_until);
+                        assert.isNull(job.started);
+                        assert.isNull(job.completed);
+                        assert.isNull(job.locked_until);
                         assert.equal(false, job.lock);
                         callback();
                     }
@@ -229,7 +229,8 @@ export class JobsClientV1Fixture {
     }
 
     public testControll(done) {
-        let job1:JobV1;
+        let job1: JobV1;
+        let job2: JobV1;
         async.series([
             // Create the first job
             (callback) => {
@@ -240,19 +241,20 @@ export class JobsClientV1Fixture {
                         assert.isNull(err);
 
                         assert.isObject(job);
-                        assert.equal(JOB1.id, job.id);
+                        assert.isNotNull(job.id);
                         assert.equal(JOB1.type, job.type);
                         assert.equal(JOB1.ref_id, job.ref_id);
-                        assert.equal(JOB1.timeout.getUTCMilliseconds(), job.timeout.getUTCMilliseconds());
-                        assert.equal(JOB1.retries, job.try_counter);
+                        assert.equal(0, job.timeout);
+                        assert.equal(0, job.try_counter);
                         assert.equal(JOB1.params, job.params);
                         assert.isNotNull(job.created);
                         assert.isNotNull(job.execute_until);
-                        assert.isUndefined(job.started);
-                        assert.isUndefined(job.completed);
-                        assert.isUndefined(job.locked_until);
+                        assert.isNull(job.started);
+                        assert.isNull(job.completed);
+                        assert.isNull(job.locked_until);
                         assert.equal(false, job.lock);
-                                                
+                        job1 = job;
+
                         callback();
                     }
                 );
@@ -266,19 +268,19 @@ export class JobsClientV1Fixture {
                         assert.isNull(err);
 
                         assert.isObject(job);
-                        assert.equal(JOB1.id, job.id);
+                        assert.isNotNull(job.id);
                         assert.equal(JOB1.type, job.type);
                         assert.equal(JOB1.ref_id, job.ref_id);
-                        assert.equal(JOB1.timeout.getUTCMilliseconds(), job.timeout.getUTCMilliseconds());
-                        assert.equal(JOB1.retries, job.try_counter);
+                        assert.equal(0, job.timeout);
+                        assert.equal(0, job.try_counter);
                         assert.equal(JOB1.params, job.params);
                         assert.isNotNull(job.created);
                         assert.isNotNull(job.execute_until);
-                        assert.isUndefined(job.started);
-                        assert.isUndefined(job.completed);
-                        assert.isUndefined(job.locked_until);
+                        assert.isNull(job.started);
+                        assert.isNull(job.completed);
+                        assert.isNull(job.locked_until);
                         assert.equal(false, job.lock);
-                                                
+
                         callback();
                     }
                 );
@@ -292,19 +294,19 @@ export class JobsClientV1Fixture {
                         assert.isNull(err);
 
                         assert.isObject(job);
-                        assert.equal(JOB3.id, job.id);
+                        assert.isNotNull(job.id);
                         assert.equal(JOB3.type, job.type);
                         assert.equal(JOB3.ref_id, job.ref_id);
-                        assert.equal(JOB3.timeout.getUTCMilliseconds(), job.timeout.getUTCMilliseconds());
-                        assert.equal(JOB3.retries, job.try_counter);
+                        assert.equal(0, job.timeout.valueOf());
+                        assert.equal(0, job.try_counter);
                         assert.equal(JOB3.params, job.params);
                         assert.isNotNull(job.created);
                         assert.isNotNull(job.execute_until);
-                        assert.isUndefined(job.started);
-                        assert.isUndefined(job.completed);
-                        assert.isUndefined(job.locked_until);
+                        assert.isNull(job.started);
+                        assert.isNull(job.completed);
+                        assert.isNull(job.locked_until);
                         assert.equal(false, job.lock);
-                                                
+
                         callback();
                     }
                 );
@@ -313,21 +315,21 @@ export class JobsClientV1Fixture {
             (callback) => {
                 this._client.getJobById(
                     null,
-                    JOB1.id,
+                    job1.id,
                     (err, job) => {
                         assert.isNull(err);
                         assert.isObject(job);
-                        assert.equal(JOB1.id, job.id);
+                        assert.equal(job1.id, job.id);
                         assert.equal(JOB1.type, job.type);
                         assert.equal(JOB1.ref_id, job.ref_id);
-                        assert.equal(JOB1.timeout.getUTCMilliseconds(), job.timeout.getUTCMilliseconds());
-                        assert.equal(JOB1.retries, job.try_counter);
+                        assert.equal(job1.timeout, job.timeout);
+                        assert.equal(job1.try_counter, job.try_counter);
                         assert.equal(JOB1.params, job.params);
                         assert.isNotNull(job.created);
                         assert.isNotNull(job.execute_until);
-                        assert.isUndefined(job.started);
-                        assert.isUndefined(job.completed);
-                        assert.isUndefined(job.locked_until);
+                        assert.isNull(job.started);
+                        assert.isNull(job.completed);
+                        assert.isNull(job.locked_until);
                         assert.equal(false, job.lock);
                         callback();
                     }
@@ -346,37 +348,39 @@ export class JobsClientV1Fixture {
                         assert.lengthOf(page.data, 2);
 
                         job1 = page.data[0];
+                        job2 = page.data[0];
                         callback();
                     }
                 )
             },
             // Test start job
-            (callback)=>{
-                this._client.startJob(
+            (callback) => {
+                this._client.startJobByType(
                     null,
-                    job1,
-                    (err, job)=>{
+                    job1.type,
+                    1000 * 60 * 10,
+                    (err, job) => {
                         assert.isNull(err);
                         assert.isObject(job);
                         assert.equal(true, job.lock);
-                        assert.isNotNull(job.locked_until || null);
-                        assert.isNotNull(job.started || null);
+                        assert.isNotNull(job.locked_until);
+                        assert.isNotNull(job.started);
                         job1 = job;
                         callback(err);
                     }
                 );
             },
             // Test extend job
-            (callback)=>{
-                let newExeUntil = new Date (job1.execute_until.getUTCMilliseconds() + job1.timeout.getUTCMilliseconds());
+            (callback) => {
+                let newExeUntil = new Date(job1.execute_until.valueOf() + job1.timeout.valueOf());
                 this._client.extendJob(
                     null,
                     job1,
-                    (err, job)=>{
+                    (err, job) => {
                         assert.isNull(err);
                         assert.isObject(job);
                         assert.equal(true, job.lock);
-                       
+
                         assert.equal(newExeUntil.getUTCMilliseconds(), job.execute_until.getUTCMilliseconds());
                         job1 = job;
                         callback(err);
@@ -384,11 +388,11 @@ export class JobsClientV1Fixture {
                 );
             },
             // Test compleate job
-            (callback)=>{
+            (callback) => {
                 this._client.compleateJob(
                     null,
                     job1,
-                    (err, job)=>{
+                    (err, job) => {
                         assert.isNull(err);
                         assert.isObject(job);
                         assert.equal(false, job.lock);
@@ -397,9 +401,41 @@ export class JobsClientV1Fixture {
                         callback(err);
                     }
                 );
+            },
+            // Test start job
+            (callback) => {
+                job2.timeout = 1000 * 60; // set timeout 1 min
+                this._client.startJob(
+                    null,
+                    job2,
+                    (err, job) => {
+                        assert.isNull(err);
+                        assert.isObject(job);
+                        assert.equal(true, job.lock);
+                        assert.isNotNull(job.locked_until);
+                        assert.isNotNull(job.started);
+                        job2 = job;
+                        callback(err);
+                    }
+                );
+            },
+            // Test abort job
+            (callback) => {
+                this._client.abortJob(
+                    null,
+                    job2,
+                    (err, job) => {
+                        assert.isNull(err);
+                        assert.isObject(job);
+                        assert.equal(false, job.lock);
+                        assert.isNotNull(job.locked_until);
+                        assert.isNull(job.started);
+                        callback(err);
+                    }
+                );
             }
         ], done);
-    
+
     }
 }
 

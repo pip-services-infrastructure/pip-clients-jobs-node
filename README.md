@@ -145,7 +145,7 @@ const JOB2: NewJobV1 = {
 Get existing job by job_id:
 ```typescript    
 
-    client.deleteJobById("123", JOB1.id, (err, job){
+    client.deleteJobById("123", JOB1.id, (err, job) => {
         if (err != null) {
             console.error('Can\'t get job!');
             console.error(err);
@@ -173,7 +173,7 @@ Get jobs by filter:
         }
     });
 
-    client.getJobs("123", FilterParams.fromTuples(
+client.getJobs("123", FilterParams.fromTuples(
                         'lock', 'false'
                     ), 
                     new PagingParams(), (err, page) => {
@@ -194,7 +194,7 @@ Get jobs by filter:
 Delete existing job by job_id:
 ```typescript    
 
-    client.deleteJobById("123", JOB1.id, (err, job){
+    client.deleteJobById("123", JOB1.id, (err, job) => {
         if (err != null) {
             console.error('Can\'t delete job!');
             console.error(err);
@@ -209,7 +209,7 @@ Delete existing job by job_id:
 Delete all job:
 ```typescript    
 
-    client.deleteJobs("123", (err){
+    client.deleteJobs("123", (err) => {
         if (err != null) {
             console.error('Can\'t delete jobs!');
             console.error(err);
@@ -222,10 +222,25 @@ Delete all job:
 
 ## Control functions
 
-Start job:
+Start first free job by type:
 ```typescript
 
-    client.startJob("123", JOB1, (err, job)=>{
+    let timeout = 1000*60*2; // Timeout for working job in ms
+    client.startJobByType("123", JOB1.type, timeout, (err, job) => {
+        if (err != null) {
+            bconsole.error('Can\'t start jo!');
+            console.error(err);
+        } else {
+            console.dir('Job was started successfull!');
+            // returned job you can use in other control methods
+        }
+    });
+```
+
+Start job (use this method, if you aborting job and want restart this):
+```typescript
+
+    client.startJob("123", JOB1, (err, job) => {
         if (err != null) {
             bconsole.error('Can\'t start jo!');
             console.error(err);
@@ -238,7 +253,7 @@ Start job:
 Extend work time existing job:
 ```typescript
 
-    client.extendJob("123", JOB1, (err, job)=>{
+    client.extendJob("123", JOB1, (err, job) => {
         if (err != null) {
             console.error('Can\'t extend job!');
             console.error(err);
@@ -251,7 +266,7 @@ Extend work time existing job:
 Abort running job:
 ```typescript
 
-    client.abortJob("123", JOB1, (err, job)=>{
+    client.abortJob("123", JOB1, (err, job) => {
         if (err != null) {
             console.error('Can\'t abort job!');
             console.error(err);
@@ -264,7 +279,7 @@ Abort running job:
 Compleate running job:
 ```typescript
 
-    client.compleateJob("123", JOB1, (err, job)=>{
+    client.compleateJob("123", JOB1, (err, job) => {
         if (err != null) {
             console.error('Can\'t compleate job!');
             console.error(err);

@@ -2,15 +2,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class JobV1 {
     constructor(newJob) {
-        this.id = newJob.id;
-        this.type = newJob.type;
-        this.ref_id = newJob.ref_id;
-        this.try_counter = newJob.retries;
-        this.timeout = newJob.timeout;
-        this.params = newJob.params;
+        let curentDt = new Date();
         this.lock = false;
-        this.created = new Date();
-        this.execute_until = new Date(this.created.getUTCMilliseconds() + newJob.ttl.getUTCMilliseconds());
+        this.created = curentDt;
+        this.try_counter = 0;
+        this.timeout = 0;
+        this.completed = null;
+        this.started = null;
+        this.locked_until = null;
+        this.execute_until = null;
+        if (newJob) {
+            this.type = newJob.type;
+            this.ref_id = newJob.ref_id;
+            this.params = newJob.params;
+            this.execute_until = new Date(curentDt.valueOf() + newJob.ttl);
+        }
     }
 }
 exports.JobV1 = JobV1;
