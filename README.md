@@ -37,7 +37,6 @@ npm install
 # Update already installed dependencies
 npm update
 ```
-
 ## Use
 
 Inside your code get the reference to the client SDK
@@ -80,13 +79,10 @@ Add job:
 ```typescript 
 
 const JOB1: NewJobV1 = {
-    id: "Job1_t1_0fsd",
     type: "t1",
     ref_id: "obj_0fsd",
     params: null,
-    timeout: new Date(1000*60*30), // 30 min
-    ttl:new Date(1000*60*60*3), // 3 hour
-    retries: 5
+    ttl:1000*60*60*3, // 3 hour
 }; 
 
     client.addJob("123", JOB1, (err, job) => {
@@ -103,23 +99,17 @@ Add uniq job:
 ```typescript 
 
 const JOB1: NewJobV1 = {
-    id: "Job1_t1_0fsd",
     type: "t1",
     ref_id: "obj_0fsd",
     params: null,
-    timeout: new Date(1000*60*30), // 30 min
-    ttl:new Date(1000*60*60*3), // 3 hour
-    retries: 5
+    ttl:1000*60*60*3, // 3 hour
 }; 
 
 const JOB2: NewJobV1 = {
-    id: "Job2_t1_0fsd",
     type: "t1",
     ref_id: "obj_0fsd",
     params: null,
-    timeout: new Date(1000*60*15), // 15 min
-    ttl: new Date(1000*60*60), // 1 hour
-    retries: 3
+    ttl: 1000*60*60 // 1 hour
 };
     client.addUniqJob("123", JOB1, (err, job) => {
         if (err != null) {
@@ -239,8 +229,8 @@ Start first free job by type:
 
 Start job (use this method, if you aborting job and want restart this):
 ```typescript
-
-    client.startJob("123", JOB1, (err, job) => {
+    let timeout = 1000*60*2; // Timeout for working job in ms
+    client.startJob("123", JOB1, timeout,  (err, job) => {
         if (err != null) {
             bconsole.error('Can\'t start jo!');
             console.error(err);
@@ -252,8 +242,8 @@ Start job (use this method, if you aborting job and want restart this):
 
 Extend work time existing job:
 ```typescript
-
-    client.extendJob("123", JOB1, (err, job) => {
+    let timeout = 1000*60*2; // Timeout for extend working time for job in ms
+    client.extendJob("123", JOB1, timeout,  (err, job) => {
         if (err != null) {
             console.error('Can\'t extend job!');
             console.error(err);
@@ -284,9 +274,10 @@ Compleate running job:
             console.error('Can\'t compleate job!');
             console.error(err);
         } else {
-            console.dir('Job was compleated successfull');
+            console.dir('Job was completed successfull');
         
 ```
+
 ## Acknowledgements
 
 This client SDK was created and currently maintained by *Sergey Seroukhov* and *Levichev Dmitry*.
