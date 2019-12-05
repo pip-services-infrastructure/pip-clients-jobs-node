@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const pip_services3_rpc_node_1 = require("pip-services3-rpc-node");
 const pip_services3_commons_node_1 = require("pip-services3-commons-node");
+const pip_services3_rpc_node_1 = require("pip-services3-rpc-node");
 class JobsDirectClientV1 extends pip_services3_rpc_node_1.DirectClient {
     constructor() {
         super();
-        this._dependencyResolver.put('controller', new pip_services3_commons_node_1.Descriptor('jobs', 'controller', '*', '*', '1.0'));
+        this._dependencyResolver.put('controller', new pip_services3_commons_node_1.Descriptor('pip-services-jobs', 'controller', '*', '*', '1.0'));
     }
     // Add new job
     addJob(correlationId, newJob, callback) {
@@ -31,10 +31,18 @@ class JobsDirectClientV1 extends pip_services3_rpc_node_1.DirectClient {
             callback(err, page);
         });
     }
-    // Start job
-    startJob(correlationId, job, timeout, callback) {
-        let timing = this.instrument(correlationId, 'jobs.start_job');
-        this._controller.startJob(correlationId, job, timeout, (err, item) => {
+    // Get job by Id
+    getJobById(correlationId, jobId, callback) {
+        let timing = this.instrument(correlationId, 'jobs.get_by_id_job');
+        this._controller.getJobById(correlationId, jobId, (err, item) => {
+            timing.endTiming();
+            callback(err, item);
+        });
+    }
+    // Start job by id
+    startJobById(correlationId, jobId, timeout, callback) {
+        let timing = this.instrument(correlationId, 'jobs.start_job_by_id');
+        this._controller.startJobById(correlationId, jobId, timeout, (err, item) => {
             timing.endTiming();
             callback(err, item);
         });
@@ -48,41 +56,33 @@ class JobsDirectClientV1 extends pip_services3_rpc_node_1.DirectClient {
         });
     }
     // Extend job execution limit on timeout value
-    extendJob(correlationId, job, timeout, callback) {
+    extendJob(correlationId, jobId, timeout, callback) {
         let timing = this.instrument(correlationId, 'jobs.extend_job');
-        this._controller.extendJob(correlationId, job, timeout, (err, item) => {
+        this._controller.extendJob(correlationId, jobId, timeout, (err, item) => {
             timing.endTiming();
             callback(err, item);
         });
     }
     // Abort job
-    abortJob(correlationId, job, callback) {
+    abortJob(correlationId, jobId, callback) {
         let timing = this.instrument(correlationId, 'jobs.abort_job');
-        this._controller.abortJob(correlationId, job, (err, item) => {
+        this._controller.abortJob(correlationId, jobId, (err, item) => {
             timing.endTiming();
             callback(err, item);
         });
     }
-    // Compleate job
-    compleateJob(correlationId, job, callback) {
-        let timing = this.instrument(correlationId, 'jobs.compleate_job');
-        this._controller.compleateJob(correlationId, job, (err, item) => {
-            timing.endTiming();
-            callback(err, item);
-        });
-    }
-    // Get job by Id
-    getJobById(correlationId, jobId, callback) {
-        let timing = this.instrument(correlationId, 'jobs.get_by_id_job');
-        this._controller.getJobById(correlationId, jobId, (err, item) => {
+    // Complete job
+    completeJob(correlationId, jobId, callback) {
+        let timing = this.instrument(correlationId, 'jobs.complete_job');
+        this._controller.completeJob(correlationId, jobId, (err, item) => {
             timing.endTiming();
             callback(err, item);
         });
     }
     // Delete job by Id
-    deleteJob(correlationId, jobId, callback) {
-        let timing = this.instrument(correlationId, 'jobs.delete_job');
-        this._controller.deleteJob(correlationId, jobId, (err, item) => {
+    deleteJobById(correlationId, jobId, callback) {
+        let timing = this.instrument(correlationId, 'jobs.delete_job_by_id');
+        this._controller.deleteJobById(correlationId, jobId, (err, item) => {
             timing.endTiming();
             callback(err, item);
         });

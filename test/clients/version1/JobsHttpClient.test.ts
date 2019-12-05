@@ -5,6 +5,7 @@ import { References } from 'pip-services3-commons-node';
 import { JobsMemoryPersistence } from 'pip-services-jobs-node';
 import { JobsController } from 'pip-services-jobs-node';
 import { JobsHttpServiceV1 } from 'pip-services-jobs-node';
+
 import { JobsHttpClientV1 } from '../../../src/clients/version1/JobsHttpClientV1';
 import { JobsClientV1Fixture } from './JobsClientV1Fixture';
 
@@ -35,10 +36,10 @@ suite('JobsHttpClientV1', () => {
         client.configure(httpConfig);
 
         let references = References.fromTuples(
-            new Descriptor('jobs', 'persistence', 'memory', 'default', '1.0'), persistence,
-            new Descriptor('jobs', 'controller', 'default', 'default', '1.0'), controller,
-            new Descriptor('jobs', 'service', 'http', 'default', '1.0'), service,
-            new Descriptor('jobs', 'client', 'http', 'default', '1.0'), client
+            new Descriptor('pip-services-jobs', 'persistence', 'memory', 'default', '1.0'), persistence,
+            new Descriptor('pip-services-jobs', 'controller', 'default', 'default', '1.0'), controller,
+            new Descriptor('pip-services-jobs', 'service', 'http', 'default', '1.0'), service,
+            new Descriptor('pip-services-jobs', 'client', 'http', 'default', '1.0'), client
         );
         controller.setReferences(references);
         service.setReferences(references);
@@ -75,8 +76,8 @@ suite('JobsHttpClientV1', () => {
         fixture.testCrudOperations(done);
     });
 
-    test('Controll test', (done) => {
-        fixture.testControll(done);
+    test('Control test', (done) => {
+        fixture.testControl(done);
     });
 
 });

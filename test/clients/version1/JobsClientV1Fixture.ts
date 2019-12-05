@@ -6,8 +6,8 @@ import { FilterParams } from 'pip-services3-commons-node';
 import { PagingParams } from 'pip-services3-commons-node';
 
 import { JobV1 } from '../../../src/data/version1/JobV1';
-import { IJobsClientV1 } from '../../../src/clients/version1/IJobsClientV1';
 import { NewJobV1 } from '../../../src/data/version1/NewJobV1';
+import { IJobsClientV1 } from '../../../src/clients/version1/IJobsClientV1';
 
 const JOB1: NewJobV1 = {
     //id: "Job1_t1_0fsd",
@@ -122,7 +122,6 @@ export class JobsClientV1Fixture {
                         assert.isNull(job.completed);
                         assert.isNull(job.locked_until);
 
-
                         callback();
                     }
                 );
@@ -169,7 +168,7 @@ export class JobsClientV1Fixture {
             },
             // Delete the job
             (callback) => {
-                this._client.deleteJob(
+                this._client.deleteJobById(
                     null,
                     job1.id,
                     (err, job) => {
@@ -206,7 +205,6 @@ export class JobsClientV1Fixture {
                     }
                 )
             },
-
             // Try to get jobs after delete
             (callback) => {
                 this._client.getJobs(
@@ -226,9 +224,10 @@ export class JobsClientV1Fixture {
         ], done);
     }
 
-    public testControll(done) {
+    public testControl(done) {
         let job1: JobV1;
         let job2: JobV1;
+
         async.series([
             // Create the first job
             (callback) => {
@@ -367,27 +366,25 @@ export class JobsClientV1Fixture {
             },
             // Test extend job
             (callback) => {
-                let timeout = 1000*60*2;
-                let newExeUntil = new Date(job1.execute_until.valueOf() + timeout);
                 this._client.extendJob(
                     null,
-                    job1, 
-                    timeout,
+                    job1.id, 
+                    1000*60*2,
                     (err, job) => {
                         assert.isNull(err);
                         assert.isObject(job);
 
-                        assert.equal(newExeUntil.getUTCMilliseconds(), job.execute_until.getUTCMilliseconds());
+                        assert.isNotNull(job.locked_until);
                         job1 = job;
                         callback(err);
                     }
                 );
             },
-            // Test compleate job
+            // Test complete job
             (callback) => {
-                this._client.compleateJob(
+                this._client.completeJob(
                     null,
-                    job1,
+                    job1.id,
                     (err, job) => {
                         assert.isNull(err);
                         assert.isObject(job);
@@ -400,10 +397,10 @@ export class JobsClientV1Fixture {
             },
             // Test start job
             (callback) => {
-                let timeout = 1000 * 60; // set timeout 1 min
-                this._client.startJob(
+                this._client.startJobById(
                     null,
-                    job2, timeout,
+                    job2.id,
+                    1000 * 60,
                     (err, job) => {
                         assert.isNull(err);
                         assert.isObject(job);
@@ -418,7 +415,7 @@ export class JobsClientV1Fixture {
             (callback) => {
                 this._client.abortJob(
                     null,
-                    job2,
+                    job2.id,
                     (err, job) => {
                         assert.isNull(err);
                         assert.isObject(job);

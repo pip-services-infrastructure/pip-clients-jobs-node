@@ -5,9 +5,9 @@ import { References } from 'pip-services3-commons-node';
 
 import { JobsMemoryPersistence } from 'pip-services-jobs-node';
 import { JobsController } from 'pip-services-jobs-node';
+
 import { JobsDirectClientV1 } from '../../../src/clients/version1/JobsDirectClientV1';
 import { JobsClientV1Fixture } from './JobsClientV1Fixture';
-import { JobsFilePersistence } from 'pip-services-jobs-node';
 
 
 suite('JobsDirectClientV1', () => {
@@ -18,7 +18,6 @@ suite('JobsDirectClientV1', () => {
 
     setup((done) => {
         persistence = new JobsMemoryPersistence();
-        //persistence = new JobsFilePersistence('data/jobs.test.json');
         persistence.configure(new ConfigParams());
 
         controller = new JobsController();
@@ -27,9 +26,9 @@ suite('JobsDirectClientV1', () => {
         client = new JobsDirectClientV1();
 
         let references = References.fromTuples(
-            new Descriptor('jobs', 'persistence', 'memory', 'default', '1.0'), persistence,
-            new Descriptor('jobs', 'controller', 'default', 'default', '1.0'), controller,
-            new Descriptor('jobs', 'client', 'direct', 'default', '1.0'), client
+            new Descriptor('pip-services-jobs', 'persistence', 'memory', 'default', '1.0'), persistence,
+            new Descriptor('pip-services-jobs', 'controller', 'default', 'default', '1.0'), controller,
+            new Descriptor('pip-services-jobs', 'client', 'direct', 'default', '1.0'), client
         );
 
         controller.setReferences(references);
@@ -48,7 +47,7 @@ suite('JobsDirectClientV1', () => {
         fixture.testCrudOperations(done);
     });
 
-    test('Controll test', (done) => {
-        fixture.testControll(done);
+    test('Control test', (done) => {
+        fixture.testControl(done);
     });
 });
