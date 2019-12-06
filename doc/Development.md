@@ -33,7 +33,7 @@ To work with GitHub code repository you need to install Git from: https://git-sc
 
 After your environment is ready you can check out microservice source code from the Github repository:
 ```bash
-git clone git@github.com:pip-services-users/pip-clients-email-node.git
+git clone git@github.com:pip-services-users/pip-clients-jobs-node.git
 ```
 
 Then go to the project folder and install dependent modules:
