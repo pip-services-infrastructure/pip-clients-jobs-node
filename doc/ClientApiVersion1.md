@@ -49,6 +49,7 @@ Add new job.
 **Arguments:** 
 - correlationId: string - id that uniquely identifies transaction
 - newJob: NewJobV1 - Initial params for create new job
+
 **Returns:**
 - err: Error - occured error or null for success
 - result: JobV1 - retrieved created job
@@ -202,7 +203,6 @@ Delete all jobs
 
 **Returns:**
 - err: Error - occured error or null for success
-
 
 ## <a name="client_http"></a> JobsHttpClientV1 class
 
