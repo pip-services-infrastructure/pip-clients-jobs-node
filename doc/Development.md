@@ -1,4 +1,4 @@
-# Development and Testing Guide <br/> Clusters service Microservice Client SDK for Node.js
+# Development and Testing Guide <br/> Jobs service Microservice Client SDK for Node.js
 
 This document provides high-level instructions on how to build and test the client SDK.
 
