@@ -6,6 +6,8 @@
 * [Development Guide](doc/Development.md)
 * Service
   - [Jobs service](https://github.com/pip-services-infrastructure/pip-service-jobs-node)
+* Client API version 1
+  - [Jobs API v1](doc/ClientApiVersion1.md)
 
 This is a Node.js client SDK for [pip-services-jobs](https://github.com/pip-services-infrastructure/pip-services-jobs-node) microservice.
 

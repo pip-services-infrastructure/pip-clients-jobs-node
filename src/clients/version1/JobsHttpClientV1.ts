@@ -111,7 +111,7 @@ export class JobsHttpClientV1 extends CommandableHttpClient implements IJobsClie
         );
     }
 
-    // Start fist free job by type
+    // Start first free job by type
     public startJobByType(correlationId: string, jobType: string, timeout: number,
         callback: (err: any, job: JobV1) => void): void {
         this.callCommand(
