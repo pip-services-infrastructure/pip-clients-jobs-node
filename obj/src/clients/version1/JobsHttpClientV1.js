@@ -64,7 +64,7 @@ class JobsHttpClientV1 extends pip_services3_rpc_node_1.CommandableHttpClient {
             callback(err, this.fixJob(job));
         });
     }
-    // Start fist free job by type
+    // Start first free job by type
     startJobByType(correlationId, jobType, timeout, callback) {
         this.callCommand('start_job_by_type', correlationId, {
             type: jobType,
