@@ -1,6 +1,6 @@
 {
     "name": "pip-clients-jobs-node",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "author": "Conceptual Vision Consulting LLC",
     "description": "Client sdk for jobs microservice in Node.js",
     "contributors": [
