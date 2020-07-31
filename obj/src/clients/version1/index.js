@@ -6,4 +6,6 @@ var JobsNullClientV1_1 = require("./JobsNullClientV1");
 exports.JobsNullClientV1 = JobsNullClientV1_1.JobsNullClientV1;
 var JobsDirectClientV1_1 = require("./JobsDirectClientV1");
 exports.JobsDirectClientV1 = JobsDirectClientV1_1.JobsDirectClientV1;
+var JobsMemoryClientV1_1 = require("./JobsMemoryClientV1");
+exports.JobsMemoryClientV1 = JobsMemoryClientV1_1.JobsMemoryClientV1;
 //# sourceMappingURL=index.js.map
