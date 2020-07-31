@@ -280,3 +280,25 @@ class JobsNullClientV1 implements IJobsClientV1 {
     deleteJobs(correlationId: string, callback?: (err: any) => void): void; 
 }
 ```
+
+## <a name="client_null"></a> JobsMemoryClientV1 class
+
+JobsMemoryClientV1 is a dummy client that mimics the real client and service. 
+It can be useful in testing scenarios to cut dependencies on external microservices.
+
+```typescript
+class JobsMemoryClientV1 implements IJobsClientV1 {
+    constructor();
+    addJob(correlationId: string, newJob: NewJobV1, callback: (err: any, job: JobV1) => void): void;
+    addUniqJob(correlationId: string, newJob: NewJobV1, callback: (err: any, job: JobV1) => void): void;
+    getJobs(correlationId: string, filter: FilterParams, paging: PagingParams, callback: (err: any, page: DataPage<JobV1>) => void): void;
+    getJobById(correlationId: string, jobId: string, callback: (err: any, job: JobV1) => void): void;
+    startJobById(correlationId: string, jobId: string, timeout: number, callback: (err: any, job: JobV1) => void): void;
+    startJobByType(correlationId: string, jobType: string, timeout: number, callback: (err: any, job: JobV1) => void): void;
+    extendJob(correlationId: string, jobId: string, timeout: number, callback: (err: any, job: JobV1) => void): void;
+    abortJob(correlationId: string, jobId: string, callback: (err: any, job: JobV1) => void): void;
+    completeJob(correlationId: string, jobId: string, callback: (err: any, job: JobV1) => void): void;
+    deleteJobById(correlationId: string, jobId: string, callback: (err: any, job: JobV1) => void): void;
+    deleteJobs(correlationId: string, callback?: (err: any) => void): void; 
+}
+```
